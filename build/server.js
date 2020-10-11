@@ -32,14 +32,14 @@ class Server {
     // peticiones de datos con api rest
     this.app.use("/api", ruta_usuario_1.default);
     /*this.app.use("/api/usuario", Usuarios);
-        this.app.use("/api/email", Email);
-        this.app.use("/api/login", Login);
-        this.app.use("/api/producto", Producto);
-        this.app.use("/api/cliente", Cliente);
-        this.app.use("/api/factura", Factura);
-        this.app.use("/api/venta", Ventas);
-        this.app.use("/api/proveedor", Proveedores);
-        this.app.use("/api/prestamo", Prestamo);*/
+            this.app.use("/api/email", Email);
+            this.app.use("/api/login", Login);
+            this.app.use("/api/producto", Producto);
+            this.app.use("/api/cliente", Cliente);
+            this.app.use("/api/factura", Factura);
+            this.app.use("/api/venta", Ventas);
+            this.app.use("/api/proveedor", Proveedores);
+            this.app.use("/api/prestamo", Prestamo);*/
   }
   start() {
     this.app.listen(this.app.get("port"), () =>

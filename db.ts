@@ -1,52 +1,30 @@
 import { Request, Connection } from "tedious";
+const sql = require("mssql");
+require("msnodesqlv8");
 
-var config = {
-  server: "APPSERVER1SQL2016",
-  authentication: {
-    type: "default",
-    options: {
-      userName: "saEspanol",
-      password: "SSss123",
-      database: "Clementina",
-    },
-  },
+const config = {
+  server: "localhost", //'DESKTOP-TJ48NPL',
+  port: 1433,
+  user: "root",
+  password: "rottweilas10",
+  database: "coello-test",
+  driver: "msnodesqlv8",
   options: {
-    database: "Clementina",
+    trustedConnection: true,
   },
 };
 
-var connection = new Connection(config);
-
-connection.on("connect", function (err: any) {
-  if (err) {
-    console.log(err.message);
-  } else {
-    console.log("Connected");
-    executeStatement();
+async function connectioMssql() {
+  try {
+    const pool = await sql.connect(config);
+    let response = await pool.request().query("SELECT * FROM none");
+    console.log(response);
+    pool.close();
+  } catch (error) {
+    console.log(error.message);
   }
-});
-
-function executeStatement() {
-  const request = new Request("SELECT * FROM Empleados", (err: any) => {
-    if (err) console.log(err.message);
-  });
-
-  let result = "";
-  request.on("row", function (columns: any) {
-    columns.forEach(function (column: any) {
-      if (column === null) {
-        console.log("NULL - NADA");
-      } else {
-        result += column.value + " ";
-      }
-      console.log(result);
-      result = "";
-    });
-  });
-
-  request.on("done", function (rowCount: any, more: any) {
-    console.log(rowCount + " rows returned");
-  });
-
-  connection.execSql(request);
 }
+
+module.exports = {
+  connectioMssql,
+};
