@@ -8,7 +8,8 @@
     "correr-js": "build/server.js",
     "dev": "ts-node-dev --respawn --transpileOnly server.ts",
     "start": "tsc && node ./build/server.js",
-    "format": "pretty-quick"
+    "format": "pretty-quick",
+    "local-tunel": "lt --port 9000"
   },
   "keywords": [
     "clementina",

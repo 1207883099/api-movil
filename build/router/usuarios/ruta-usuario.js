@@ -49,8 +49,11 @@ class Usuario {
   obtener_usuarios(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
       try {
-        cn.connectioMssql();
-        response_1.default.success(req, res, [{ user: "andres coello" }], 200);
+        let poll = yield cn.connectioMssql();
+        const response = yield poll.query(
+          "SELECT TOP 10 * FROM Empleados INNER JOIN TiposEmpleado ON TiposEmpleado.codigo = Empleados.TipoEmpleado WHERE TiposEmpleado.idEmpresa = 1 AND TiposEmpleado.Nombre = 'Administrativos' ORDER BY Empleados.IdEmpleado"
+        );
+        response_1.default.success(req, res, response.recordset, 200);
       } catch (error) {
         response_1.default.error(
           req,

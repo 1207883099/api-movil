@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import Respuesta from "../../network/response";
-const cn = require("../../db");
+import Store from "./store-empleados";
 
 class Usuario {
   router: Router;
@@ -10,10 +10,10 @@ class Usuario {
     this.ruta();
   }
 
-  async obtener_usuarios(req: Request, res: Response) {
+  async obtener_empleados(req: Request, res: Response) {
     try {
-      cn.connectioMssql();
-      Respuesta.success(req, res, [{ user: "andres coello" }], 200);
+      const response = await Store.ConsultaEmpleados();
+      Respuesta.success(req, res, response.recordset, 200);
     } catch (error) {
       Respuesta.error(req, res, error, 500, "Error en obtener usuarios");
     }
@@ -21,11 +21,11 @@ class Usuario {
 
   ruta() {
     /* entry point user */
-    this.router.get("/", this.obtener_usuarios);
+    this.router.get("/", this.obtener_empleados);
     /*this.router.get("/:id", this.obtener_usuario);
-        this.router.post("/", this.crear_usuario);
-        this.router.put("/:id", comprobar, this.editar_usuario);
-        this.router.delete("/:id", comprobar, this.eliminar_usuario);*/
+    this.router.post("/", this.crear_usuario);
+    this.router.put("/:id", comprobar, this.editar_usuario);
+    this.router.delete("/:id", comprobar, this.eliminar_usuario);*/
   }
 }
 
