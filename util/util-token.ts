@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, Router } from "express";
 import jwt from "jsonwebtoken";
 import Respuesta from "../network/response";
-const { config } = require("../../config/index");
+const { credenciales } = require("../config");
 
 const comprobar = Router();
 
@@ -10,7 +10,7 @@ comprobar.use((req: Request, res: Response, next: NextFunction) => {
   console.log(token);
 
   if (token) {
-    jwt.verify(token, config.jwtSecret, (err: any, decoded: any) => {
+    jwt.verify(token, credenciales.jwtSecret, (err: any, decoded: any) => {
       if (err) {
         console.log(err);
         Respuesta.success(
@@ -36,5 +36,5 @@ comprobar.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 module.exports = {
-  comprobar,
+  comprobar_auth: comprobar,
 };

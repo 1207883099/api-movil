@@ -19,6 +19,9 @@ const ruta_validate_1 = __importDefault(
   require("./router/validate/ruta-validate")
 );
 const ruta_auth_1 = __importDefault(require("./router/auth/ruta-auth"));
+const ruta_maestra_1 = __importDefault(
+  require("./router/maestra/ruta-maestra")
+);
 class Server {
   constructor() {
     this.app = express_1.default();
@@ -39,8 +42,8 @@ class Server {
     this.app.use("/api/empleados", ruta_empleados_1.default);
     this.app.use("/api/validation", ruta_validate_1.default);
     this.app.use("/api/auth", ruta_auth_1.default);
-    /*this.app.use("/api/login", Login);
-        this.app.use("/api/producto", Producto);
+    this.app.use("/api/maestra", ruta_maestra_1.default);
+    /*this.app.use("/api/producto", Producto);
         this.app.use("/api/prestamo", Prestamo);*/
   }
   start() {

@@ -2,8 +2,9 @@ import { Request, Response, Router } from "express";
 import Respuesta from "../../network/response";
 import Store from "./store-auth";
 import jwt from "jsonwebtoken";
+import StoreEmpleado from "../empleados/store-empleados";
 import Color from "colors";
-import { Auth_INT, MyUser, Token_INT } from "../../interface";
+import { Auth_INT, Empleado_INT, MyUser, Token_INT } from "../../interface";
 const { credenciales } = require("../../config");
 
 class Auth {
@@ -18,10 +19,8 @@ class Auth {
     const { ip_movil } = req.body || null;
 
     try {
-      const response = await Store.AuthIpPublic(ip_movil);
+      const response = await Store.AuthIpMovil(ip_movil);
       const data: Array<Auth_INT> = response.recordset;
-
-      console.log(data);
 
       if (data.length === 0) {
         Respuesta.success(
@@ -33,21 +32,34 @@ class Auth {
           200
         );
       } else {
+        const Empleado = await StoreEmpleado.ConsultaEmpleado(
+          data[0].id_Empleado
+        );
+        const DataEmpleado: Array<Empleado_INT> = Empleado.recordset;
+
+        console.log(DataEmpleado);
+
         const GenerateToken: Token_INT = {
           id_Empleado: data[0].id_Empleado,
           id_login_movil: data[0].id_login_movil,
           movil_ip: data[0].movil_ip,
+          IdMayordomo: DataEmpleado[0].IdEmpleado,
         };
 
-        const MyUser: MyUser = {
-          token: jwt.sign(GenerateToken, credenciales.jwtSecret),
-          id_Empleado: data[0].id_Empleado,
-          id_login_movil: data[0].id_login_movil,
-          movil_ip: data[0].movil_ip,
-          fecha_ingreso: data[0].fecha_ingreso,
-        };
+        const MyUser: Array<MyUser> = [
+          {
+            token: jwt.sign(GenerateToken, credenciales.jwtSecret),
+            id_Empleado: data[0].id_Empleado,
+            id_login_movil: data[0].id_login_movil,
+            movil_ip: data[0].movil_ip,
+            fecha_ingreso: data[0].fecha_ingreso,
+            Nombre: DataEmpleado[0].Nombre,
+            Apellido: DataEmpleado[0].Apellido,
+            IdMayordomo: DataEmpleado[0].IdEmpleado,
+          },
+        ];
 
-        Respuesta.success(req, res, [MyUser], 200);
+        Respuesta.success(req, res, { MyUser: MyUser }, 200);
       }
     } catch (error) {
       Respuesta.error(req, res, error, 500, "Error en autenticar usuario");

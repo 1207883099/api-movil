@@ -1,7 +1,7 @@
 const cn = require("../../db");
 
 class Store {
-  async AuthIpPublic(ip_movil: string) {
+  async AuthIpMovil(ip_movil: string) {
     let poll = await cn.connectioMssql();
     return await poll.query(
       `SELECT * FROM LoginMovil WHERE movil_ip = '${ip_movil}';`
