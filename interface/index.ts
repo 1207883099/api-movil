@@ -24,8 +24,11 @@ export interface MyUser {
 }
 
 export interface Maestra_INT {
-  My_Cuadrilla: Mi_Cuadrilla_INT;
+  My_Cuadrilla: Array<Mi_Cuadrilla_INT>;
   Labores: Array<Labores_INT>;
+  Actividades: Array<Actividades_INT>;
+  Lotes: Array<Lote_INT>;
+  Sectores: Array<Sector_INT>;
 }
 
 export interface Empleado_INT {
@@ -59,4 +62,22 @@ export interface Labores_INT {
   IdLaborPadre?: number;
   Codigo?: string;
   Nombre: string;
+}
+
+export interface Actividades_INT {
+  IdActividad: number;
+  Codigo: string;
+  Nombre: string;
+}
+
+export interface Lote_INT {
+  IdLote: number;
+  Codigo: string;
+  Nombre: string;
+}
+
+export interface Sector_INT {
+  IdSector: number;
+  Nombre: string;
+  Nombre_Hacienda: string;
 }
