@@ -47,6 +47,13 @@ class Maestra {
           return delete empleado.Estado && delete empleado.Nombre_Cuadrilla;
         });
 
+        Mi_Cuadrilla_Mas_Detalles.Empleados.map((empleado) => {
+          empleado.Nombre = empleado.Nombre.replace(/^\s*|\s*$/g, "");
+          empleado.Apellido = empleado.Apellido.replace(/^\s*|\s*$/g, "");
+          empleado.Cedula = empleado.Cedula.replace(/^\s*|\s*$/g, "");
+          return empleado;
+        });
+
         mis_cuadrillas.push(Mi_Cuadrilla_Mas_Detalles);
       }
 

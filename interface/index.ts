@@ -36,7 +36,7 @@ export interface Empleado_INT {
   Nombre: string;
   Apellido: string;
   Codigo: string;
-  Cedula?: string;
+  Cedula?: string | undefined | any;
   // de relaciones empleado - cuadrilla
   Estado?: string;
   Nombre_Cuadrilla?: string;
