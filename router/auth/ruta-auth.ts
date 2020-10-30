@@ -18,6 +18,8 @@ class Auth {
   async autenticacion(req: Request, res: Response) {
     const { ip_movil } = req.body || null;
 
+    console.log(ip_movil);
+
     try {
       const response = await Store.AuthIpMovil(ip_movil);
       const data: Array<Auth_INT> = response.recordset;

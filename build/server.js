@@ -20,6 +20,9 @@ const ruta_auth_1 = __importDefault(require("./router/auth/ruta-auth"));
 const ruta_maestra_1 = __importDefault(
   require("./router/maestra/ruta-maestra")
 );
+const ruta_parte_diario_1 = __importDefault(
+  require("./router/parteDiario/ruta-parte-diario")
+);
 class Server {
   constructor() {
     this.app = express_1.default();
@@ -41,8 +44,8 @@ class Server {
     this.app.use("/api/validation", ruta_validate_1.default);
     this.app.use("/api/auth", ruta_auth_1.default);
     this.app.use("/api/maestra", ruta_maestra_1.default);
-    /*this.app.use("/api/producto", Producto);
-        this.app.use("/api/prestamo", Prestamo);*/
+    this.app.use("/api/parteDiario", ruta_parte_diario_1.default);
+    /*this.app.use("/api/prestamo", Prestamo);*/
   }
   start() {
     this.app.listen(this.app.get("port"), () =>
