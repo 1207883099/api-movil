@@ -3,7 +3,6 @@ import Respuesta from "../../network/response";
 import Store from "./store-auth";
 import jwt from "jsonwebtoken";
 import StoreEmpleado from "../empleados/store-empleados";
-import Color from "colors";
 import { Auth_INT, Empleado_INT, MyUser, Token_INT } from "../../interface";
 const { credenciales } = require("../../config");
 
@@ -17,8 +16,6 @@ class Auth {
 
   async autenticacion(req: Request, res: Response) {
     const { ip_movil } = req.body || null;
-
-    console.log(ip_movil);
 
     try {
       const response = await Store.AuthIpMovil(ip_movil);

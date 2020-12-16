@@ -36,6 +36,7 @@ export interface Empleado_INT {
   Nombre: string;
   Apellido: string;
   Codigo: string;
+  Cargo?: string;
   Cedula?: string | undefined | any;
   // de relaciones empleado - cuadrilla
   Estado?: string;
@@ -80,4 +81,10 @@ export interface Sector_INT {
   IdSector: number;
   Nombre: string;
   Nombre_Hacienda: string;
+}
+
+export interface Cargo_INT {
+  IdCargo: string;
+  codigo: string;
+  Nombre: string;
 }
