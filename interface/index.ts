@@ -69,12 +69,14 @@ export interface Actividades_INT {
   IdActividad: number;
   Codigo: string;
   Nombre: string;
+  IdLabor: number;
 }
 
 export interface Lote_INT {
   IdLote: number;
   Codigo: string;
   Nombre: string;
+  IdSector: number;
 }
 
 export interface Sector_INT {
