@@ -12,7 +12,7 @@ class Store {
   async ConsultaEmpleado(codigo: string) {
     let poll = await cn.connectioMssql();
     return await poll.query(
-      `SELECT [idEmpleado], [Codigo], [Nombre], [Apellido] FROM Empleados WHERE Codigo = '${codigo}';`
+      `SELECT [idEmpleado], [Codigo], [Nombre], [Apellido], [Cargo] FROM Empleados WHERE Codigo = '${codigo}';`
     );
   }
 }

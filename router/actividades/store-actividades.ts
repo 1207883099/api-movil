@@ -4,7 +4,7 @@ class Store {
   async Obtener_actividades() {
     let poll = await cn.connectioMssql();
     return await poll.query(
-      `SELECT IdActividad, Codigo, Nombre FROM Actividades WHERE Estado = 'Activo';`
+      `SELECT IdActividad, Codigo, Nombre, IdLabor FROM Actividades WHERE Estado = 'Activo';`
     );
   }
 }

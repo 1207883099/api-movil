@@ -20,12 +20,8 @@ class Usuario {
   }
 
   ruta() {
-    /* entry point user */
+    /* entry point empleados */
     this.router.get("/", this.obtener_empleados);
-    /*this.router.get("/:id", this.obtener_usuario);
-    this.router.post("/", this.crear_usuario);
-    this.router.put("/:id", comprobar, this.editar_usuario);
-    this.router.delete("/:id", comprobar, this.eliminar_usuario);*/
   }
 }
 

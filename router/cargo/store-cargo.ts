@@ -1,10 +1,10 @@
 const cn = require("../../db");
 
 class Store {
-  async Obtener_lotes() {
+  async Obtener_cargos() {
     let poll = await cn.connectioMssql();
     return await poll.query(
-      `SELECT IdLote, Codigo, Nombre, IdSector FROM Lotes;`
+      `SELECT IdCargo, Codigo, Nombre FROM Cargos WHERE IdEmpresa = 2;`
     );
   }
 }
