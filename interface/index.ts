@@ -25,7 +25,7 @@ export interface MyUser {
 
 export interface Maestra_INT {
   My_Cuadrilla: Array<Mi_Cuadrilla_INT>;
-  Labores: Array<Labores_INT>;
+  // Labores: Array<Labores_INT>;
   Actividades: Array<Actividades_INT>;
   Lotes: Array<Lote_INT>;
   Sectores: Array<Sector_INT>;

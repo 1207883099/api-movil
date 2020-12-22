@@ -2,14 +2,14 @@ import { Request, Response, Router } from "express";
 import Respuesta from "../../network/response";
 import StoreLotes from "../lote/store-lote";
 import StoreSecto from "../sector/store-sector";
-import StoreLabores from "../Labores/store-labores";
+//import StoreLabores from "../Labores/store-labores";
 import StoreActividades from "../actividades/store-actividades";
 import StoreCuadrilla from "../cuadrilla/store-cuadrilla";
 const { comprobar_auth } = require("../../util/util-token");
 import {
   Actividades_INT,
   Cuadrilla_INT,
-  Labores_INT,
+  //Labores_INT,
   Lote_INT,
   Maestra_INT,
   Mi_Cuadrilla_INT,
@@ -60,8 +60,8 @@ class Maestra {
       /* TERMINA CUADRILLA */
       /* COMIENZA LABORES */
 
-      const labores = await StoreLabores.Obtener_Labores();
-      const DataLabores: Array<Labores_INT> = labores.recordset;
+      //const labores = await StoreLabores.Obtener_Labores();
+      //const DataLabores: Array<Labores_INT> = labores.recordset;
 
       /* TERMINA LABORES */
       /* COMIENZO DE ACTIVIDADES */
@@ -85,7 +85,7 @@ class Maestra {
 
       const Maestra: Maestra_INT = {
         My_Cuadrilla: mis_cuadrillas,
-        Labores: DataLabores,
+        // Labores: DataLabores,
         Actividades: dataActividades,
         Lotes: dataLotes,
         Sectores: dataSectores,
