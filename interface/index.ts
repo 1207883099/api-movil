@@ -1,3 +1,5 @@
+import { NullLiteral } from "typescript";
+
 export interface Auth_INT {
   id_login_movil: number;
   movil_ip: string;
@@ -89,4 +91,14 @@ export interface Cargo_INT {
   IdCargo: string;
   codigo: string;
   Nombre: string;
+}
+
+export interface Tarifas_INT {
+  IdTarifa: number;
+  Maximo: number;
+  Minimo: number;
+  ValorTarifa: number;
+  IdActividad: number;
+  IdHacienda: number;
+  ValidaHectareas: number | null;
 }

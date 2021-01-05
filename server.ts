@@ -12,6 +12,7 @@ import Auth from "./router/auth/ruta-auth";
 import Maestra from "./router/maestra/ruta-maestra";
 import ParteDiario from "./router/parteDiario/ruta-parte-diario";
 import Cargos from "./router/cargo/ruta-cargo";
+import Tarifas from "./router/tarifas/ruta-tarifa";
 
 class Server {
   public app: express.Application;
@@ -39,6 +40,7 @@ class Server {
     this.app.use("/api/maestra", Maestra);
     this.app.use("/api/parteDiario", ParteDiario);
     this.app.use("/api/cargo", Cargos);
+    this.app.use("/api/tarifa", Tarifas);
   }
 
   start() {

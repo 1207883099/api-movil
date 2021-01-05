@@ -1,10 +1,10 @@
 const cn = require("../../db");
 
 class Store {
-  async Obtener_cargos() {
+  async Obtener_Tarifas() {
     let poll = await cn.connectioMssql();
     return await poll.query(
-      `SELECT IdCargo, Codigo, Nombre, ActividadId FROM Cargos WHERE IdEmpresa = 2 AND ActividadId is not Null;`
+      `SELECT IdTarifa, Maximo, Minimo, ValorTarifa, IdActividad, IdHacienda, ValidaHectareas FROM Tarifas;`
     );
   }
 }
