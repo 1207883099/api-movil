@@ -1,5 +1,3 @@
-import { NullLiteral } from "typescript";
-
 export interface Auth_INT {
   id_login_movil: number;
   movil_ip: string;
@@ -101,4 +99,33 @@ export interface Tarifas_INT {
   IdActividad: number;
   IdHacienda: number;
   ValidaHectareas: number | null;
+}
+
+export interface Tipo_Rol_INT {
+  IdTipoRol: number;
+  Nombre: string;
+}
+
+export interface Hacienda_INT {
+  IdHacienda: number;
+  Nombre: string;
+}
+
+export interface Ejercicio_Fiscal_INT {
+  IdDetalleCatalogo: number;
+  Valor1: number;
+  Valor2: number;
+}
+
+export interface Periodo_Nominas_INT {
+  IdPeriodoNomina: number;
+  EjercicioFiscal: number;
+  Numero: number;
+}
+
+export interface Configuracion_INT {
+  TipoRol: Array<Tipo_Rol_INT>;
+  Haciendas: Array<Hacienda_INT>;
+  Fiscal: Array<Ejercicio_Fiscal_INT>;
+  Periodo: Array<Periodo_Nominas_INT>;
 }
