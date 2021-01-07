@@ -46,7 +46,7 @@ class Configuracion {
           break;
         case "PeriodoNomina":
           /// obtener Periodo nominas
-          const PeriodoNominas = await StorePeriodo.Obtener_Ejercicio_Fiscal(
+          const PeriodoNominas = await StorePeriodo.Obtener_Periodo(
             Number(fiscal)
           );
           const Data_Periodo: Array<Periodo_Nominas_INT> =

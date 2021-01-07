@@ -24,6 +24,9 @@ const ruta_parte_diario_1 = __importDefault(
 );
 const ruta_cargo_1 = __importDefault(require("./router/cargo/ruta-cargo"));
 const ruta_tarifa_1 = __importDefault(require("./router/tarifas/ruta-tarifa"));
+const ruta_configuracion_1 = __importDefault(
+  require("./router/configuracion/ruta-configuracion")
+);
 class Server {
   constructor() {
     this.app = express_1.default();
@@ -47,6 +50,7 @@ class Server {
     this.app.use("/api/parteDiario", ruta_parte_diario_1.default);
     this.app.use("/api/cargo", ruta_cargo_1.default);
     this.app.use("/api/tarifa", ruta_tarifa_1.default);
+    this.app.use("/api/configuracion", ruta_configuracion_1.default);
   }
   start() {
     this.app.listen(this.app.get("port"), () =>
