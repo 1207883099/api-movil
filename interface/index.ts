@@ -82,6 +82,7 @@ export interface Lote_INT {
 export interface Sector_INT {
   IdSector: number;
   Nombre: string;
+  IdHacienda: number;
   Nombre_Hacienda: string;
 }
 
