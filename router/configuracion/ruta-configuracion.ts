@@ -21,7 +21,7 @@ class Configuracion {
 
   async getConfiguracion(req: Request, res: Response) {
     const { section } = req.params || null;
-    const { fiscal } = req.query || null;
+    const { fiscal, rol } = req.query || null;
 
     try {
       switch (section) {
@@ -47,7 +47,8 @@ class Configuracion {
         case "PeriodoNomina":
           /// obtener Periodo nominas
           const PeriodoNominas = await StorePeriodo.Obtener_Periodo(
-            Number(fiscal)
+            Number(fiscal),
+            Number(rol)
           );
           const Data_Periodo: Array<Periodo_Nominas_INT> =
             PeriodoNominas.recordset;
