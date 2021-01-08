@@ -45,20 +45,18 @@ class Auth {
           IdMayordomo: DataEmpleado[0].IdEmpleado,
         };
 
-        const MyUser: Array<MyUser> = [
-          {
-            token: jwt.sign(GenerateToken, credenciales.jwtSecret),
-            id_Empleado: data[0].id_Empleado,
-            id_login_movil: data[0].id_login_movil,
-            movil_ip: data[0].movil_ip,
-            fecha_ingreso: data[0].fecha_ingreso,
-            Nombre: DataEmpleado[0].Nombre,
-            Apellido: DataEmpleado[0].Apellido,
-            IdMayordomo: DataEmpleado[0].IdEmpleado,
-          },
-        ];
+        const MyUser: MyUser = {
+          token: jwt.sign(GenerateToken, credenciales.jwtSecret),
+          id_Empleado: data[0].id_Empleado,
+          id_login_movil: data[0].id_login_movil,
+          movil_ip: data[0].movil_ip,
+          fecha_ingreso: data[0].fecha_ingreso,
+          Nombre: DataEmpleado[0].Nombre,
+          Apellido: DataEmpleado[0].Apellido,
+          IdMayordomo: DataEmpleado[0].IdEmpleado,
+        };
 
-        Respuesta.success(req, res, { MyUser: MyUser }, 200);
+        Respuesta.success(req, res, { MyUser }, 200);
       }
     } catch (error) {
       Respuesta.error(req, res, error, 500, "Error en autenticar usuario");
