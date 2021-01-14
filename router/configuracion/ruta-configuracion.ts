@@ -62,6 +62,12 @@ class Configuracion {
             PeriodoNominas.recordset;
           Respuesta.success(req, res, Data_Periodo, 200);
           break;
+        case "Divicion":
+          /// obtener Divicion
+          const divicion = await StoreFiscal.Obtener_Divicion();
+          const Data_Divicion: Array<Ejercicio_Fiscal_INT> = divicion.recordset;
+          Respuesta.success(req, res, Data_Divicion, 200);
+          break;
         default:
           Respuesta.success(
             req,
