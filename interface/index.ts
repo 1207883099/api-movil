@@ -28,7 +28,7 @@ export interface Maestra_INT {
   // Labores: Array<Labores_INT>;
   Actividades: Array<Actividades_INT>;
   Lotes: Array<Lote_INT>;
-  Sectores: Array<Sector_INT>;
+  // Sectores: Array<Sector_INT>;
 }
 
 export interface Empleado_INT {

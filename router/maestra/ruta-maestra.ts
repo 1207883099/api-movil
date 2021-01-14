@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import Respuesta from "../../network/response";
 import StoreLotes from "../lote/store-lote";
-import StoreSecto from "../sector/store-sector";
+//import StoreSecto from "../sector/store-sector";
 //import StoreLabores from "../Labores/store-labores";
 import StoreActividades from "../actividades/store-actividades";
 import StoreCuadrilla from "../cuadrilla/store-cuadrilla";
@@ -13,7 +13,7 @@ import {
   Lote_INT,
   Maestra_INT,
   Mi_Cuadrilla_INT,
-  Sector_INT,
+  //Sector_INT,
 } from "../../interface";
 
 class Maestra {
@@ -78,8 +78,8 @@ class Maestra {
       /* TERMINA LOTES */
       /* COMIENZA SECTORES */
 
-      const sectores = await StoreSecto.Obtener_sectores();
-      const dataSectores: Array<Sector_INT> = sectores.recordset;
+      /*const sectores = await StoreSecto.Obtener_sectores();
+      const dataSectores: Array<Sector_INT> = sectores.recordset;*/
 
       /* TERMINA SECTORES */
 
@@ -88,7 +88,7 @@ class Maestra {
         // Labores: DataLabores,
         Actividades: dataActividades,
         Lotes: dataLotes,
-        Sectores: dataSectores,
+        //Sectores: dataSectores,
       };
 
       Respuesta.success(req, res, Maestra, 200);

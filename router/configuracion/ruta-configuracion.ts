@@ -4,11 +4,13 @@ import Store from "../tipoRol/store-tipoRol";
 import StoreFiscal from "../ejercicio-fiscal/store-ejercicio-fiscal";
 import StorePeriodo from "../periodo/store-periodo";
 import StoreHacienda from "../haciendas/store-haciendas";
+import StoreSector from "../sector/store-sector";
 import {
   Tipo_Rol_INT,
   Hacienda_INT,
   Ejercicio_Fiscal_INT,
   Periodo_Nominas_INT,
+  Sector_INT,
 } from "../../interface";
 
 class Configuracion {
@@ -36,6 +38,12 @@ class Configuracion {
           const haciendas = await StoreHacienda.Obtener_Haciendas();
           const Data_Hacienda: Array<Hacienda_INT> = haciendas.recordset;
           Respuesta.success(req, res, Data_Hacienda, 200);
+          break;
+        case "Sector":
+          /// obtener sectores
+          const sectores = await StoreSector.Obtener_sectores();
+          const Data_Sectores: Array<Sector_INT> = sectores.recordset;
+          Respuesta.success(req, res, Data_Sectores, 200);
           break;
         case "EjercicioFiscal":
           /// obtener ejercicio fiscal
