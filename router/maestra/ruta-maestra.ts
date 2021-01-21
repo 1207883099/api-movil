@@ -28,7 +28,7 @@ class Maestra {
   async bajarMaestra(req: Request, res: Response) {
     try {
       /* COMIENZA CUADRILLA */
-      const miCuadrilla = await StoreCuadrilla.Obtener_mi_cuadrilla("252");
+      const miCuadrilla = await StoreCuadrilla.Obtener_mi_cuadrilla("2095");
       const Data_mi_cuadrilla: Array<Cuadrilla_INT> = miCuadrilla.recordset;
 
       let mis_cuadrillas: Array<any> = [];

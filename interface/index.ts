@@ -130,3 +130,46 @@ export interface Configuracion_INT {
   Fiscal: Array<Ejercicio_Fiscal_INT>;
   Periodo: Array<Periodo_Nominas_INT>;
 }
+
+export interface ParteTrabajo_INT {
+  IdParteTrabajo?: number;
+  Codigo: string;
+  Division: string;
+  EjercicioFiscal: string;
+  Fecha: string;
+  Hacienda: string | null;
+  IntegradoNovedad: number;
+  IdMayordomo: number;
+  IdPeriodo: number;
+  Sector: string | null;
+  IdTipoRol: number;
+  IdHacienda: number;
+  IdSector: number;
+  ParteTrabajoDetalle: Array<ParteTrabajoDetalle_INT>;
+}
+
+export interface ParteTrabajoDetalle_INT {
+  IdActividad: number;
+  TipoActividad: string;
+  IdLabor: number;
+  Adicional: number;
+  CodigoEmpleado: string;
+  IdEmpleado: number;
+  IdNovedad: number | null;
+  IdParteTrabajo: number;
+  IdRubro: number;
+  Tarifa: number;
+  Total: number;
+  UnidadMedida: number | string;
+  Valor: number;
+  Observacion: string | null;
+  isLote: boolean;
+  lotes: Array<ParteTrabajoDetalleValor_INT>;
+}
+
+export interface ParteTrabajoDetalleValor_INT {
+  IdParteTrabajoDetalle: number;
+  Lote: string;
+  Valor: number;
+  IdLote: number;
+}

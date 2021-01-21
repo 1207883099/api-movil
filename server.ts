@@ -10,7 +10,7 @@ import { logger } from "./util/loguer";
 import Empleados from "./router/empleados/ruta-empleados";
 import Auth from "./router/auth/ruta-auth";
 import Maestra from "./router/maestra/ruta-maestra";
-import ParteDiario from "./router/parteDiario/ruta-parte-diario";
+import ParteTrabajo from "./router/parteTrabajo/ruta-parte-diario";
 import Cargos from "./router/cargo/ruta-cargo";
 import Tarifas from "./router/tarifas/ruta-tarifa";
 import Configuracion from "./router/configuracion/ruta-configuracion";
@@ -39,7 +39,7 @@ class Server {
     this.app.use("/api/empleados", Empleados);
     this.app.use("/api/auth", Auth);
     this.app.use("/api/maestra", Maestra);
-    this.app.use("/api/parteDiario", ParteDiario);
+    this.app.use("/api/parteTrabajo", ParteTrabajo);
     this.app.use("/api/cargo", Cargos);
     this.app.use("/api/tarifa", Tarifas);
     this.app.use("/api/configuracion", Configuracion);

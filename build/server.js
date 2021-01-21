@@ -20,7 +20,7 @@ const ruta_maestra_1 = __importDefault(
   require("./router/maestra/ruta-maestra")
 );
 const ruta_parte_diario_1 = __importDefault(
-  require("./router/parteDiario/ruta-parte-diario")
+  require("./router/parteTrabajo/ruta-parte-diario")
 );
 const ruta_cargo_1 = __importDefault(require("./router/cargo/ruta-cargo"));
 const ruta_tarifa_1 = __importDefault(require("./router/tarifas/ruta-tarifa"));
@@ -47,7 +47,7 @@ class Server {
     this.app.use("/api/empleados", ruta_empleados_1.default);
     this.app.use("/api/auth", ruta_auth_1.default);
     this.app.use("/api/maestra", ruta_maestra_1.default);
-    this.app.use("/api/parteDiario", ruta_parte_diario_1.default);
+    this.app.use("/api/parteTrabajo", ruta_parte_diario_1.default);
     this.app.use("/api/cargo", ruta_cargo_1.default);
     this.app.use("/api/tarifa", ruta_tarifa_1.default);
     this.app.use("/api/configuracion", ruta_configuracion_1.default);
