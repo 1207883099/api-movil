@@ -30,10 +30,10 @@ class Store {
     );
   }
 
-  async get_ultimo_parte_trabajo_detalle() {
+  async get_ultimo_parte_trabajo_detalle(IdParteTrabajo: number) {
     let poll = await cn.connectioMssql();
     return await poll.query(
-      `SELECT TOP 1 [IdParteTrabajoDetalle] FROM PartesTrabajoDetalle ORDER BY IdParteTrabajoDetalle DESC;`
+      `SELECT TOP 1 [IdParteTrabajoDetalle] FROM PartesTrabajoDetalle WHERE IdParteTrabajo = ${IdParteTrabajo} ORDER BY IdParteTrabajoDetalle DESC;`
     );
   }
 

@@ -19,11 +19,12 @@ class ParteTrabajo {
   async create_parte_trabajo(req: Request, res: Response) {
     const { dataPD } = req.body || null;
     console.log(dataPD[0].ParteTrabajoDetalle);
+    let lasIdParteTrabajoDetalle: number;
 
     try {
       for (let i = 0; i < dataPD.length; i++) {
         const ParteTrabajo: ParteTrabajo_INT = {
-          Codigo: "00000001",
+          Codigo: "00000003",
           Division: dataPD[i].Division,
           EjercicioFiscal: dataPD[i].EjercicioFiscal,
           Fecha: dataPD[i].Fecha,
@@ -47,6 +48,8 @@ class ParteTrabajo {
                 ParteTrabajo.ParteTrabajoDetalle[j].IdActividad
               );
 
+              const idPT = Number(ultimoPT.recordset[0].IdParteTrabajo);
+
               const ParteTrabajoDetalle: ParteTrabajoDetalle_INT = {
                 IdActividad: ParteTrabajo.ParteTrabajoDetalle[j].IdActividad,
                 TipoActividad: actividad.recordset[0].TipoActividad,
@@ -56,7 +59,7 @@ class ParteTrabajo {
                   ParteTrabajo.ParteTrabajoDetalle[j].CodigoEmpleado,
                 IdEmpleado: ParteTrabajo.ParteTrabajoDetalle[j].IdEmpleado,
                 IdNovedad: null,
-                IdParteTrabajo: Number(ultimoPT.recordset[0].IdParteTrabajo),
+                IdParteTrabajo: idPT,
                 IdRubro: 111,
                 Tarifa: ParteTrabajo.ParteTrabajoDetalle[j].Tarifa,
                 Total: ParteTrabajo.ParteTrabajoDetalle[j].Total,
@@ -67,38 +70,42 @@ class ParteTrabajo {
                 lotes: dataPD[i].ParteTrabajoDetalle[j].lotes,
               };
 
-              Store.insert_parte_trabajo_detalle(ParteTrabajoDetalle)
-                .then(() => {
-                  if (ParteTrabajoDetalle.isLote) {
-                    Store.get_ultimo_parte_trabajo_detalle().then(
-                      (ultimoPTD) => {
-                        let item;
-                        for (
-                          let k = 0;
-                          k < ParteTrabajoDetalle.lotes.length;
-                          k++
-                        ) {
-                          item = ParteTrabajoDetalle.lotes;
+              await Store.insert_parte_trabajo_detalle(ParteTrabajoDetalle);
 
-                          const ParteTrabajoDetalleValor: ParteTrabajoDetalleValor_INT = {
-                            IdParteTrabajoDetalle:
-                              ultimoPTD.recordset[0].IdParteTrabajoDetalle,
-                            Lote: item[k].Lote,
-                            IdLote: item[k].IdLote,
-                            Valor: item[k].Valor,
-                          };
+              if (ParteTrabajoDetalle.isLote) {
+                Store.get_ultimo_parte_trabajo_detalle(idPT).then(
+                  (ultimoPTD) => {
+                    let IdParteTrabajoDetalle: number =
+                      ultimoPTD.recordset[0].IdParteTrabajoDetalle;
 
-                          Store.insert_parte_trabajo_detalle_valor(
-                            ParteTrabajoDetalleValor
-                          )
-                            .then(() => console.log("Inserto detalle valor"))
-                            .catch((error) => console.log(error.message));
-                        }
-                      }
-                    );
+                    if (IdParteTrabajoDetalle === lasIdParteTrabajoDetalle) {
+                      IdParteTrabajoDetalle += 1;
+                    }
+
+                    console.log(IdParteTrabajoDetalle);
+
+                    let item;
+                    for (let k = 0; k < ParteTrabajoDetalle.lotes.length; k++) {
+                      item = ParteTrabajoDetalle.lotes;
+
+                      const ParteTrabajoDetalleValor: ParteTrabajoDetalleValor_INT = {
+                        IdParteTrabajoDetalle: IdParteTrabajoDetalle,
+                        Lote: item[k].Lote,
+                        IdLote: item[k].IdLote,
+                        Valor: item[k].Valor,
+                      };
+
+                      Store.insert_parte_trabajo_detalle_valor(
+                        ParteTrabajoDetalleValor
+                      )
+                        .then(() => console.log("Inserto detalle valor"))
+                        .catch((error) => console.log(error.message));
+                    }
+
+                    lasIdParteTrabajoDetalle = IdParteTrabajoDetalle;
                   }
-                })
-                .catch((error) => console.log(error.message));
+                );
+              }
             }
           })
           .catch((error) => console.log(error.message));
