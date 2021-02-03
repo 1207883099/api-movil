@@ -68,28 +68,34 @@ class ParteTrabajo {
               };
 
               Store.insert_parte_trabajo_detalle(ParteTrabajoDetalle)
-                .then(async () => {
+                .then(() => {
                   if (ParteTrabajoDetalle.isLote) {
-                    const ultimoPTD = await Store.get_ultimo_parte_trabajo_detalle();
+                    Store.get_ultimo_parte_trabajo_detalle().then(
+                      (ultimoPTD) => {
+                        let item;
+                        for (
+                          let k = 0;
+                          k < ParteTrabajoDetalle.lotes.length;
+                          k++
+                        ) {
+                          item = ParteTrabajoDetalle.lotes;
 
-                    let item;
-                    for (let k = 0; k < ParteTrabajoDetalle.lotes.length; k++) {
-                      item = ParteTrabajoDetalle.lotes;
+                          const ParteTrabajoDetalleValor: ParteTrabajoDetalleValor_INT = {
+                            IdParteTrabajoDetalle:
+                              ultimoPTD.recordset[0].IdParteTrabajoDetalle,
+                            Lote: item[k].Lote,
+                            IdLote: item[k].IdLote,
+                            Valor: item[k].Valor,
+                          };
 
-                      console.log(item);
-
-                      const ParteTrabajoDetalleValor: ParteTrabajoDetalleValor_INT = {
-                        IdParteTrabajoDetalle:
-                          ultimoPTD.recordset[0].IdParteTrabajoDetalle,
-                        Lote: item[k].Lote,
-                        IdLote: item[k].IdLote,
-                        Valor: item[k].Valor,
-                      };
-
-                      await Store.insert_parte_trabajo_detalle_valor(
-                        ParteTrabajoDetalleValor
-                      );
-                    }
+                          Store.insert_parte_trabajo_detalle_valor(
+                            ParteTrabajoDetalleValor
+                          )
+                            .then(() => console.log("Inserto detalle valor"))
+                            .catch((error) => console.log(error.message));
+                        }
+                      }
+                    );
                   }
                 })
                 .catch((error) => console.log(error.message));
