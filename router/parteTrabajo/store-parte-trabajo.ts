@@ -7,6 +7,20 @@ const cn = require("../../db");
 
 class Store {
   /* PARTE TRABAJO */
+  async get_parte_trabajo(
+    Fecha: string,
+    IdMayordomo: number,
+    IdPeriodo: number,
+    IdTipoRol: number,
+    IdHacienda: number,
+    IdSector: number
+  ) {
+    let poll = await cn.connectioMssql();
+    return await poll.query(
+      `SELECT * FROM PartesTrabajo WHERE Fecha = '${Fecha}' AND IdMayordomo = ${IdMayordomo} AND IdPeriodo = ${IdPeriodo} AND IdTipoRol = ${IdTipoRol} AND IdHacienda = ${IdHacienda} AND IdSector = ${IdSector};`
+    );
+  }
+
   async insert_parte_trabajo(PT: ParteTrabajo_INT) {
     let poll = await cn.connectioMssql();
     return await poll.query(
@@ -18,6 +32,13 @@ class Store {
     let poll = await cn.connectioMssql();
     return await poll.query(
       `SELECT TOP 1 [IdParteTrabajo] FROM PartesTrabajo ORDER BY IdParteTrabajo DESC;`
+    );
+  }
+
+  async remove_parte_trabajo(IdParteTrabajo: number) {
+    let poll = await cn.connectioMssql();
+    return await poll.query(
+      `DELETE FROM PartesTrabajo WHERE IdParteTrabajo = ${IdParteTrabajo};`
     );
   }
 
@@ -37,12 +58,33 @@ class Store {
     );
   }
 
+  async get_parte_trabajo_detalle_by_parte_trabajo(IdParteTrabajo: number) {
+    let poll = await cn.connectioMssql();
+    return await poll.query(
+      `SELECT IdParteTrabajoDetalle FROM PartesTrabajoDetalle WHERE IdParteTrabajo = ${IdParteTrabajo} ORDER BY IdParteTrabajoDetalle DESC;`
+    );
+  }
+
+  async remove_parte_trabajo_detalle(IdParteTrabajo: number) {
+    let poll = await cn.connectioMssql();
+    return await poll.query(
+      `DELETE FROM PartesTrabajoDetalle WHERE IdParteTrabajo = ${IdParteTrabajo};`
+    );
+  }
+
   /* PARTE TRABAJO DETALLES VALORES */
 
   async insert_parte_trabajo_detalle_valor(PTDV: ParteTrabajoDetalleValor_INT) {
     let poll = await cn.connectioMssql();
     return await poll.query(
       `INSERT INTO PartesTrabajoDetalleValor (IdParteTrabajoDetalle, Lote, Valor, IdLote) VALUES (${PTDV.IdParteTrabajoDetalle}, '${PTDV.Lote}', ${PTDV.Valor}, ${PTDV.IdLote});`
+    );
+  }
+
+  async remove_parte_trabajo_detalle_valor(IdParteTrabajoDetalle: number) {
+    let poll = await cn.connectioMssql();
+    return await poll.query(
+      `DELETE FROM PartesTrabajoDetalleValor WHERE IdParteTrabajoDetalle = ${IdParteTrabajoDetalle};`
     );
   }
 }

@@ -149,6 +149,7 @@ export interface ParteTrabajo_INT {
 }
 
 export interface ParteTrabajoDetalle_INT {
+  IdParteTrabajoDetalle?: number;
   IdActividad: number;
   TipoActividad: string;
   IdLabor: number;
