@@ -37,6 +37,7 @@ class ParteTrabajo {
           IdTipoRol: dataPD[i].IdTipoRol,
           IdHacienda: dataPD[i].IdHacienda,
           IdSector: dataPD[i].IdSector,
+          IdCuadrilla: dataPD[i].IdCuadrilla,
           ParteTrabajoDetalle: dataPD[i].ParteTrabajoDetalle,
         };
 
@@ -47,7 +48,8 @@ class ParteTrabajo {
           dataPD[i].IdPeriodo,
           dataPD[i].IdTipoRol,
           dataPD[i].IdHacienda,
-          dataPD[i].IdSector
+          dataPD[i].IdSector,
+          dataPD[i].IdCuadrilla
         );
         const DataExist: ParteTrabajo_INT[] = ExistPTD.recordset;
 

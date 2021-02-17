@@ -13,18 +13,19 @@ class Store {
     IdPeriodo: number,
     IdTipoRol: number,
     IdHacienda: number,
-    IdSector: number
+    IdSector: number,
+    IdCuadrilla: number
   ) {
     let poll = await cn.connectioMssql();
     return await poll.query(
-      `SELECT * FROM PartesTrabajo WHERE Fecha = '${Fecha}' AND IdMayordomo = ${IdMayordomo} AND IdPeriodo = ${IdPeriodo} AND IdTipoRol = ${IdTipoRol} AND IdHacienda = ${IdHacienda} AND IdSector = ${IdSector};`
+      `SELECT * FROM PartesTrabajo WHERE Fecha = '${Fecha}' AND IdMayordomo = ${IdMayordomo} AND IdPeriodo = ${IdPeriodo} AND IdTipoRol = ${IdTipoRol} AND IdHacienda = ${IdHacienda} AND IdSector = ${IdSector} AND IdCuadrilla = ${IdCuadrilla};`
     );
   }
 
   async insert_parte_trabajo(PT: ParteTrabajo_INT) {
     let poll = await cn.connectioMssql();
     return await poll.query(
-      `INSERT INTO PartesTrabajo (Codigo, Division, EjercicioFiscal, Fecha, Hacienda, IntegradoNovedad, IdMayordomo, IdPeriodo, Sector, IdTipoRol, IdHacienda, IdSector) VALUES ('${PT.Codigo}', '${PT.Division}', '${PT.EjercicioFiscal}', CONVERT(datetime, '${PT.Fecha}'), ${PT.Hacienda}, ${PT.IntegradoNovedad}, ${PT.IdMayordomo}, ${PT.IdPeriodo}, ${PT.Sector}, ${PT.IdTipoRol}, ${PT.IdHacienda}, ${PT.IdSector});`
+      `INSERT INTO PartesTrabajo (Codigo, Division, EjercicioFiscal, Fecha, Hacienda, IntegradoNovedad, IdMayordomo, IdPeriodo, Sector, IdTipoRol, IdHacienda, IdSector, IdCuadrilla) VALUES ('${PT.Codigo}', '${PT.Division}', '${PT.EjercicioFiscal}', CONVERT(datetime, '${PT.Fecha}'), ${PT.Hacienda}, ${PT.IntegradoNovedad}, ${PT.IdMayordomo}, ${PT.IdPeriodo}, ${PT.Sector}, ${PT.IdTipoRol}, ${PT.IdHacienda}, ${PT.IdSector}, ${PT.IdCuadrilla});`
     );
   }
 

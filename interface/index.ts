@@ -1,12 +1,12 @@
 export interface Auth_INT {
   id_login_movil: number;
-  movil_ip: string;
+  codeAccess: string;
   id_Empleado: string;
   fecha_ingreso: string;
 }
 
 export interface Token_INT {
-  movil_ip: string;
+  codeAccess: string;
   id_login_movil: number;
   id_Empleado: string | number;
   IdMayordomo: number;
@@ -14,7 +14,7 @@ export interface Token_INT {
 
 export interface MyUser {
   token: string;
-  movil_ip: string;
+  codeAccess: string;
   id_login_movil: number;
   id_Empleado: string | number;
   fecha_ingreso: string;
@@ -54,6 +54,7 @@ export interface Cuadrilla_INT {
 export interface Mi_Cuadrilla_INT {
   Nombre: string;
   Estado: string;
+  IdCuadrilla: number;
   Empleados: Array<Empleado_INT>;
 }
 
@@ -70,6 +71,7 @@ export interface Actividades_INT {
   Codigo: string;
   Nombre: string;
   IdLabor: number;
+  CodigoActividad: number;
 }
 
 export interface Lote_INT {
@@ -145,6 +147,7 @@ export interface ParteTrabajo_INT {
   IdTipoRol: number;
   IdHacienda: number;
   IdSector: number;
+  IdCuadrilla: number;
   ParteTrabajoDetalle: Array<ParteTrabajoDetalle_INT>;
 }
 

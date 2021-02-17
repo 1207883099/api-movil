@@ -15,10 +15,10 @@ class Auth {
   }
 
   async autenticacion(req: Request, res: Response) {
-    const { ip_movil } = req.body || null;
+    const { codeAccess } = req.body || null;
 
     try {
-      const response = await Store.AuthIpMovil(ip_movil);
+      const response = await Store.AuthCodeAccessMovil(codeAccess);
       const data: Array<Auth_INT> = response.recordset;
 
       if (data.length === 0) {
@@ -26,7 +26,7 @@ class Auth {
           req,
           res,
           {
-            feedback: `La ip: ${ip_movil} no tiene permisos de utilizar la aplicacion.`,
+            feedback: `La ip: ${codeAccess} no tiene permisos de utilizar la aplicacion.`,
           },
           200
         );
@@ -41,7 +41,7 @@ class Auth {
         const GenerateToken: Token_INT = {
           id_Empleado: Number(data[0].id_Empleado),
           id_login_movil: data[0].id_login_movil,
-          movil_ip: data[0].movil_ip,
+          codeAccess: data[0].codeAccess,
           IdMayordomo: DataEmpleado[0].IdEmpleado,
         };
 
@@ -49,7 +49,7 @@ class Auth {
           token: jwt.sign(GenerateToken, credenciales.jwtSecret),
           id_Empleado: Number(data[0].id_Empleado),
           id_login_movil: data[0].id_login_movil,
-          movil_ip: data[0].movil_ip,
+          codeAccess: data[0].codeAccess,
           fecha_ingreso: data[0].fecha_ingreso,
           Nombre: DataEmpleado[0].Nombre,
           Apellido: DataEmpleado[0].Apellido,

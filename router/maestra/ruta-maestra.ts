@@ -28,7 +28,9 @@ class Maestra {
   async bajarMaestra(req: Request, res: Response) {
     try {
       /* COMIENZA CUADRILLA */
-      const miCuadrilla = await StoreCuadrilla.Obtener_mi_cuadrilla("2095");
+      const miCuadrilla = await StoreCuadrilla.Obtener_mi_cuadrilla(
+        res.locals.datos_user.id_Empleado
+      );
       const Data_mi_cuadrilla: Array<Cuadrilla_INT> = miCuadrilla.recordset;
 
       let mis_cuadrillas: Array<any> = [];
@@ -40,6 +42,7 @@ class Maestra {
         const Mi_Cuadrilla_Mas_Detalles: Mi_Cuadrilla_INT = {
           Nombre: detalleCuadrilla.recordset[i].Nombre_Cuadrilla,
           Estado: detalleCuadrilla.recordset[i].Estado,
+          IdCuadrilla: Data_mi_cuadrilla[i].IdCuadrilla,
           Empleados: detalleCuadrilla.recordset,
         };
 
@@ -99,7 +102,7 @@ class Maestra {
 
   ruta() {
     /* entry point auth */
-    this.router.get("/", this.bajarMaestra);
+    this.router.get("/", comprobar_auth, this.bajarMaestra);
   }
 }
 
