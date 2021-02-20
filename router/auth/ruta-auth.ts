@@ -39,7 +39,7 @@ class Auth {
         console.log(DataEmpleado);
 
         const GenerateToken: Token_INT = {
-          id_Empleado: Number(data[0].id_Empleado),
+          id_Empleado: data[0].id_Empleado,
           id_login_movil: data[0].id_login_movil,
           codeAccess: data[0].codeAccess,
           IdMayordomo: DataEmpleado[0].IdEmpleado,
@@ -47,7 +47,7 @@ class Auth {
 
         const MyUser: MyUser = {
           token: jwt.sign(GenerateToken, credenciales.jwtSecret),
-          id_Empleado: Number(data[0].id_Empleado),
+          id_Empleado: data[0].id_Empleado,
           id_login_movil: data[0].id_login_movil,
           codeAccess: data[0].codeAccess,
           fecha_ingreso: data[0].fecha_ingreso,

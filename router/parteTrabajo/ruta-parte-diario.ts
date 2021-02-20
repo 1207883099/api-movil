@@ -56,7 +56,7 @@ class ParteTrabajo {
         if (DataExist.length) {
           Store.get_parte_trabajo_detalle_by_parte_trabajo(
             Number(DataExist[0].IdParteTrabajo)
-          ).then((response) => {
+          ).then(async (response) => {
             const PTD: ParteTrabajoDetalle_INT[] = response.recordset;
 
             for (let i = 0; i < PTD.length; i++) {
@@ -67,14 +67,15 @@ class ParteTrabajo {
               );
             }
 
-            Store.remove_parte_trabajo_detalle(
+            await Store.remove_parte_trabajo_detalle(
               Number(DataExist[0].IdParteTrabajo)
-            ).then(() =>
-              console.log("Eliminar parte trabajo detalle duplicado")
             );
-            Store.remove_parte_trabajo(
+            console.log("Eliminar parte trabajo detalle duplicado");
+
+            await Store.remove_parte_trabajo(
               Number(DataExist[0].IdParteTrabajo)
-            ).then(() => console.log("Eliminar parte trabajo duplicado"));
+            );
+            console.log("Eliminar parte trabajo duplicado");
           });
         }
 

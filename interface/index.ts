@@ -1,7 +1,7 @@
 export interface Auth_INT {
   id_login_movil: number;
   codeAccess: string;
-  id_Empleado: string;
+  id_Empleado: number;
   fecha_ingreso: string;
 }
 

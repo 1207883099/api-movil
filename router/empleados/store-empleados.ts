@@ -9,10 +9,10 @@ class Store {
     );
   }
 
-  async ConsultaEmpleado(codigo: string) {
+  async ConsultaEmpleado(idEmpleado: number) {
     let poll = await cn.connectioMssql();
     return await poll.query(
-      `SELECT [idEmpleado], [Codigo], [Nombre], [Apellido], [Cargo] FROM Empleados WHERE Codigo = '${codigo}';`
+      `SELECT [idEmpleado], [Codigo], [Nombre], [Apellido], [Cargo] FROM Empleados WHERE idEmpleado = '${idEmpleado}';`
     );
   }
 }
