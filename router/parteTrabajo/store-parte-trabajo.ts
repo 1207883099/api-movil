@@ -22,6 +22,16 @@ class Store {
     );
   }
 
+  async get_ultimo_codigo_parte_trabajo(
+    IdMayordomo: number,
+    IdCuadrilla: number
+  ) {
+    let poll = await cn.connectioMssql();
+    return await poll.query(
+      `SELECT * FROM PartesTrabajo WHERE IdMayordomo = ${IdMayordomo} AND IdCuadrilla = ${IdCuadrilla} AND Codigo LIKE '8%' ORDER BY IdParteTrabajo DESC;`
+    );
+  }
+
   async insert_parte_trabajo(PT: ParteTrabajo_INT) {
     let poll = await cn.connectioMssql();
     return await poll.query(

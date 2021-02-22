@@ -24,8 +24,29 @@ class ParteTrabajo {
     try {
       ///// INSERTAR PARTE DIARIOS
       for (let i = 0; i < dataPD.length; i++) {
+        const PT = await Store.get_ultimo_codigo_parte_trabajo(
+          dataPD[i].IdMayordomo,
+          dataPD[i].IdCuadrilla
+        );
+        const DataPT: ParteTrabajo_INT[] = PT.recordset;
+        let IdCuarilla = `${dataPD[i].IdCuadrilla}`;
+
+        switch (IdCuarilla.length) {
+          case 1:
+            IdCuarilla = `00${IdCuarilla}`;
+            break;
+          case 2:
+            IdCuarilla = `0${IdCuarilla}`;
+        }
+
+        let Codigo: string = `8${IdCuarilla}00001`;
+
+        if (DataPT.length) {
+          Codigo = `${Number(DataPT[0].Codigo) + 1}`;
+        }
+
         const ParteTrabajo: ParteTrabajo_INT = {
-          Codigo: "00000004",
+          Codigo,
           Division: dataPD[i].Division,
           EjercicioFiscal: dataPD[i].EjercicioFiscal,
           Fecha: dataPD[i].Fecha,
@@ -60,11 +81,10 @@ class ParteTrabajo {
             const PTD: ParteTrabajoDetalle_INT[] = response.recordset;
 
             for (let i = 0; i < PTD.length; i++) {
-              Store.remove_parte_trabajo_detalle_valor(
+              await Store.remove_parte_trabajo_detalle_valor(
                 Number(PTD[i].IdParteTrabajoDetalle)
-              ).then(() =>
-                console.log("Eliminar parte trabajo detalle valor duplicado")
               );
+              console.log("Eliminar parte trabajo detalle valor duplicado");
             }
 
             await Store.remove_parte_trabajo_detalle(
