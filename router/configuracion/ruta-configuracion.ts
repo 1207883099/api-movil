@@ -30,24 +30,28 @@ class Configuracion {
         case "TipoRol":
           /// obtener tipos de rol
           const tipoRol = await Store.Obtener_TipoRol();
+
           const Data_Tipo_Rol: Array<Tipo_Rol_INT> = tipoRol.recordset;
           Respuesta.success(req, res, Data_Tipo_Rol, 200);
           break;
         case "Hacienda":
           /// obtener haciendas
           const haciendas = await StoreHacienda.Obtener_Haciendas();
+
           const Data_Hacienda: Array<Hacienda_INT> = haciendas.recordset;
           Respuesta.success(req, res, Data_Hacienda, 200);
           break;
         case "Sector":
           /// obtener sectores
           const sectores = await StoreSector.Obtener_sectores();
+
           const Data_Sectores: Array<Sector_INT> = sectores.recordset;
           Respuesta.success(req, res, Data_Sectores, 200);
           break;
         case "EjercicioFiscal":
           /// obtener ejercicio fiscal
           const EjercicioFiscal = await StoreFiscal.Obtener_Ejercicio_Fiscal();
+
           const Data_Ejercicio_Fiscal: Array<Ejercicio_Fiscal_INT> =
             EjercicioFiscal.recordset;
           Respuesta.success(req, res, Data_Ejercicio_Fiscal, 200);
@@ -58,6 +62,7 @@ class Configuracion {
             Number(fiscal),
             Number(rol)
           );
+
           const Data_Periodo: Array<Periodo_Nominas_INT> =
             PeriodoNominas.recordset;
           Respuesta.success(req, res, Data_Periodo, 200);

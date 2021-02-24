@@ -1,10 +1,10 @@
 const cn = require("../../db");
 
 class Store {
-  async Obtener_Labores() {
+  async Obtener_rubro_by_labor(idLabor: number) {
     let poll = await cn.connectioMssql();
     return await poll.query(
-      `SELECT IdLabor, Nombre FROM Labores ORDER BY Nombre ASC;`
+      `SELECT IdRubro FROM Labores WHERE IdLabor = ${idLabor};`
     );
   }
 }

@@ -49,12 +49,14 @@ export interface Cuadrilla_INT {
   Estado: string;
   Nombres: string;
   idMayordomo: number;
+  secuencialpartediario: number;
 }
 
 export interface Mi_Cuadrilla_INT {
   Nombre: string;
   Estado: string;
   IdCuadrilla: number;
+  secuencialpartediario: number;
   Empleados: Array<Empleado_INT>;
 }
 
@@ -124,6 +126,7 @@ export interface Periodo_Nominas_INT {
   IdPeriodoNomina: number;
   EjercicioFiscal: number;
   Numero: number;
+  FechaInicial: Date | string;
 }
 
 export interface Configuracion_INT {

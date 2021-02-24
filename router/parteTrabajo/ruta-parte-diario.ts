@@ -6,6 +6,8 @@ import {
 } from "../../interface";
 import Respuesta from "../../network/response";
 import StoreActividad from "../actividades/store-actividades";
+import StoreCuadrilla from "../cuadrilla/store-cuadrilla";
+import StoreLabores from "../Labores/store-labores";
 import Store from "./store-parte-trabajo";
 
 class ParteTrabajo {
@@ -24,29 +26,8 @@ class ParteTrabajo {
     try {
       ///// INSERTAR PARTE DIARIOS
       for (let i = 0; i < dataPD.length; i++) {
-        const PT = await Store.get_ultimo_codigo_parte_trabajo(
-          dataPD[i].IdMayordomo,
-          dataPD[i].IdCuadrilla
-        );
-        const DataPT: ParteTrabajo_INT[] = PT.recordset;
-        let IdCuarilla = `${dataPD[i].IdCuadrilla}`;
-
-        switch (IdCuarilla.length) {
-          case 1:
-            IdCuarilla = `00${IdCuarilla}`;
-            break;
-          case 2:
-            IdCuarilla = `0${IdCuarilla}`;
-        }
-
-        let Codigo: string = `8${IdCuarilla}00001`;
-
-        if (DataPT.length) {
-          Codigo = `${Number(DataPT[0].Codigo) + 1}`;
-        }
-
         const ParteTrabajo: ParteTrabajo_INT = {
-          Codigo,
+          Codigo: dataPD[i].codigo,
           Division: dataPD[i].Division,
           EjercicioFiscal: dataPD[i].EjercicioFiscal,
           Fecha: dataPD[i].Fecha,
@@ -109,19 +90,25 @@ class ParteTrabajo {
                   ParteTrabajo.ParteTrabajoDetalle[j].IdActividad
                 );
 
+                const IdLabor = actividad.recordset[0].IdLabor;
+
+                const Rubro = await StoreLabores.Obtener_rubro_by_labor(
+                  IdLabor
+                );
+
                 const idPT = Number(ultimoPT.recordset[0].IdParteTrabajo);
 
                 const ParteTrabajoDetalle: ParteTrabajoDetalle_INT = {
                   IdActividad: ParteTrabajo.ParteTrabajoDetalle[j].IdActividad,
                   TipoActividad: actividad.recordset[0].TipoActividad,
-                  IdLabor: actividad.recordset[0].IdLabor,
+                  IdLabor,
                   Adicional: 0.0,
                   CodigoEmpleado:
                     ParteTrabajo.ParteTrabajoDetalle[j].CodigoEmpleado,
                   IdEmpleado: ParteTrabajo.ParteTrabajoDetalle[j].IdEmpleado,
                   IdNovedad: null,
                   IdParteTrabajo: idPT,
-                  IdRubro: 111,
+                  IdRubro: Rubro.recordset[0].IdRubro,
                   Tarifa: ParteTrabajo.ParteTrabajoDetalle[j].Tarifa,
                   Total: ParteTrabajo.ParteTrabajoDetalle[j].Total,
                   UnidadMedida: "003",
@@ -130,6 +117,12 @@ class ParteTrabajo {
                   isLote: dataPD[i].ParteTrabajoDetalle[j].isLote,
                   lotes: dataPD[i].ParteTrabajoDetalle[j].lotes,
                 };
+
+                const NumberSecuencial = ParteTrabajo.Codigo.substr(-5);
+                await StoreCuadrilla.Update_secuencial_cuadrilla(
+                  ParteTrabajo.IdCuadrilla,
+                  NumberSecuencial
+                );
 
                 await Store.insert_parte_trabajo_detalle(ParteTrabajoDetalle);
 
