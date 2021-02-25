@@ -26,8 +26,29 @@ class ParteTrabajo {
     try {
       ///// INSERTAR PARTE DIARIOS
       for (let i = 0; i < dataPD.length; i++) {
+        let iteracion = `${dataPD[i].codigo}`;
+        const CellCuadrilla = iteracion.substr(0, 4);
+        const Int = iteracion.substr(4, iteracion.length - 4);
+        let codigoZero;
+
+        switch (iteracion.length) {
+          case 5:
+            codigoZero = `${CellCuadrilla}0000${Int}`;
+            break;
+          case 6:
+            codigoZero = `${CellCuadrilla}000${Int}`;
+            break;
+          case 7:
+            codigoZero = `${CellCuadrilla}00${Int}`;
+          case 8:
+            codigoZero = `${CellCuadrilla}0${Int}`;
+            break;
+          default:
+            codigoZero = `${CellCuadrilla}${Int}`;
+        }
+
         const ParteTrabajo: ParteTrabajo_INT = {
-          Codigo: dataPD[i].codigo,
+          Codigo: `${codigoZero}`,
           Division: dataPD[i].Division,
           EjercicioFiscal: dataPD[i].EjercicioFiscal,
           Fecha: dataPD[i].Fecha,
@@ -121,7 +142,7 @@ class ParteTrabajo {
                 const NumberSecuencial = ParteTrabajo.Codigo.substr(-5);
                 await StoreCuadrilla.Update_secuencial_cuadrilla(
                   ParteTrabajo.IdCuadrilla,
-                  NumberSecuencial
+                  Number(NumberSecuencial)
                 );
 
                 await Store.insert_parte_trabajo_detalle(ParteTrabajoDetalle);
@@ -172,6 +193,7 @@ class ParteTrabajo {
 
       Respuesta.success(req, res, { upload: true }, 200);
     } catch (error) {
+      console.log(error.message);
       Respuesta.success(
         req,
         res,

@@ -15,7 +15,7 @@ class Store {
     );
   }
 
-  async Update_secuencial_cuadrilla(id_cuadrilla: number, secuencia: string) {
+  async Update_secuencial_cuadrilla(id_cuadrilla: number, secuencia: number) {
     let poll = await cn.connectioMssql();
     return await poll.query(
       `UPDATE Cuadrillas SET secuencialpartediario = ${secuencia} WHERE IdCuadrilla = ${id_cuadrilla};`
