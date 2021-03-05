@@ -151,7 +151,6 @@ export interface ParteTrabajo_INT {
   IdHacienda: number;
   IdSector: number;
   IdCuadrilla: number;
-  ParteTrabajoDetalle: Array<ParteTrabajoDetalle_INT>;
 }
 
 export interface ParteTrabajoDetalle_INT {
@@ -170,8 +169,6 @@ export interface ParteTrabajoDetalle_INT {
   UnidadMedida: number | string;
   Valor: number;
   Observacion: string | null;
-  isLote: boolean;
-  lotes: Array<ParteTrabajoDetalleValor_INT>;
 }
 
 export interface ParteTrabajoDetalleValor_INT {
