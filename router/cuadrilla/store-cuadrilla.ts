@@ -4,7 +4,7 @@ class Store {
   async Obtener_mi_cuadrilla(id_mayordomo: string) {
     let poll = await cn.connectioMssql();
     return await poll.query(
-      `SELECT * FROM Cuadrillas WHERE IdMayordomo = '${id_mayordomo}';`
+      `SELECT * FROM Cuadrillas WHERE IdMayordomo = '${id_mayordomo}' AND Estado = 'A';`
     );
   }
 
