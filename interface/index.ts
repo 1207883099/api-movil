@@ -81,6 +81,7 @@ export interface Lote_INT {
   Codigo: string;
   Nombre: string;
   IdSector: number;
+  Hectareas: number;
 }
 
 export interface Sector_INT {
@@ -104,6 +105,7 @@ export interface Tarifas_INT {
   IdActividad: number;
   IdHacienda: number;
   ValidaHectareas: number | null;
+  UnidadMedida: string;
 }
 
 export interface Tipo_Rol_INT {

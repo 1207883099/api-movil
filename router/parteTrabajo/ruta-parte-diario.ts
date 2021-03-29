@@ -80,6 +80,7 @@ class ParteTrabajo {
         IdParteTrabajo,
         Tarifa,
         Total,
+        UnidadMedida,
         Valor,
       } = req.body || null;
       console.log(req.body);
@@ -103,7 +104,7 @@ class ParteTrabajo {
         IdRubro: Rubro.recordset[0].IdRubro,
         Tarifa,
         Total,
-        UnidadMedida: "003",
+        UnidadMedida,
         Valor,
         Observacion: "App Movil",
       };

@@ -4,7 +4,7 @@ class Store {
   async Obtener_lotes() {
     let poll = await cn.connectioMssql();
     return await poll.query(
-      `SELECT IdLote, Codigo, Nombre, IdSector FROM Lotes ORDER BY Nombre ASC;`
+      `SELECT IdLote, Codigo, Nombre, IdSector, Hectareas FROM Lotes ORDER BY Nombre ASC;`
     );
   }
 }
