@@ -23,13 +23,13 @@ class Configuracion {
 
   async getConfiguracion(req: Request, res: Response) {
     const { section } = req.params || null;
-    const { fiscal, rol } = req.query || null;
+    const { fiscal, rol, idEmpresa, idHacienda } = req.query || null;
 
     try {
       switch (section) {
         case "TipoRol":
           /// obtener tipos de rol
-          const tipoRol = await Store.Obtener_TipoRol();
+          const tipoRol = await Store.Obtener_TipoRol(Number(idEmpresa));
 
           const Data_Tipo_Rol: Array<Tipo_Rol_INT> = tipoRol.recordset;
           Respuesta.success(req, res, Data_Tipo_Rol, 200);
@@ -43,7 +43,9 @@ class Configuracion {
           break;
         case "Sector":
           /// obtener sectores
-          const sectores = await StoreSector.Obtener_sectores();
+          const sectores = await StoreSector.Obtener_sectores(
+            Number(idHacienda)
+          );
 
           const Data_Sectores: Array<Sector_INT> = sectores.recordset;
           Respuesta.success(req, res, Data_Sectores, 200);

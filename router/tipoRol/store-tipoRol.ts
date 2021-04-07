@@ -1,9 +1,11 @@
 const cn = require("../../db");
 
 class Store {
-  async Obtener_TipoRol() {
+  async Obtener_TipoRol(idEmpresa: number) {
     let poll = await cn.connectioMssql();
-    return await poll.query(`SELECT IdTipoRol, Nombre FROM TiposRol;`);
+    return await poll.query(
+      `SELECT IdTipoRol, Nombre, TipoEmpleado FROM TiposRol WHERE IdEmpresa = ${idEmpresa};`
+    );
   }
 
   async Obtener_TipoRol_By_Id(IdTipoRol: number) {

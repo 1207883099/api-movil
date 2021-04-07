@@ -12,15 +12,13 @@ class Usuario {
   }
 
   async obtener_empleados_por_tipo(req: Request, res: Response) {
-    const { IdRol } = req.params;
+    const { tipoEmpleado, idEmpresa } = req.query;
+
+    const Empleado = tipoEmpleado as string;
+    const Empresa = idEmpresa as string;
 
     try {
-      const obtenerTipoRol = await StoreRol.Obtener_TipoRol_By_Id(
-        Number(IdRol)
-      );
-      const AllEmpleados = await Store.ConsultaEmpleadosTipo(
-        obtenerTipoRol.recordset[0].Codigo
-      );
+      const AllEmpleados = await Store.ConsultaEmpleados(Empleado, Empresa);
 
       for (let i = 0; i < AllEmpleados.recordset.length; i++) {
         let item = AllEmpleados.recordset[i];
@@ -30,13 +28,13 @@ class Usuario {
 
       Respuesta.success(req, res, AllEmpleados.recordset, 200);
     } catch (error) {
-      Respuesta.error(req, res, error, 500, "Error en obtener usuarios");
+      Respuesta.error(req, res, error, 500, "Error en obtener empleados");
     }
   }
 
   ruta() {
     /* entry point empleados */
-    this.router.get("/:IdRol", this.obtener_empleados_por_tipo);
+    this.router.get("/", this.obtener_empleados_por_tipo);
   }
 }
 
